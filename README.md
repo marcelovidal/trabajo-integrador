@@ -47,8 +47,7 @@ Implementar frontend (no necesariamente debe funcionar todo):
   - Pantalla de login.
   - Lista de tareas. Botones de acciones.
   - Formulario para crear y/o editar una tarea.
-
-Mostrar detalles de la tarea.
+  - Mostrar detalles de la tarea.
 
 #  Entrega final
 Implementar backend en NodeJS:
