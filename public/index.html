@@ -1,0 +1,159 @@
+<html>
+  <head>
+    <title>Usuarios IUPA</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+      integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body onload="initApp()">
+    <div class="container">
+      <h1>Usuarios IUPA</h1>
+
+      <div class="panel panel-default" id="form-login">
+        <div class="panel-heading">Login</div>
+        <div class="panel-body">
+          <form id="createUserForm">
+            <div class="form-group">
+              <label for="username">Usuario</label>
+              <input
+                class="form-control"
+                type="text"
+                id="username"
+                placeholder="Nombre de usuario"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input class="form-control" type="password" id="password" />
+            </div>
+
+            <button type="button" onclick="login()" class="btn btn-success">
+              Iniciar Sesión
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <button
+          type="button"
+          onclick="logout()"
+          id="cont-logout"
+          class="btn btn-warning hidden"
+        >
+          Cerrar Sesión
+        </button>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">Lista Usuarios</div>
+        <div class="panel-body" id="contentTable"></div>
+      </div>
+
+      <div class="panel panel-default" id="form-create">
+        <div class="panel-heading">Crear Usuario</div>
+        <div class="panel-body">
+          <form id="createUserForm">
+            <div class="form-group">
+              <label for="inputName">Nombre</label>
+              <input
+                class="form-control"
+                type="text"
+                id="inputName"
+                placeholder="Nombre"
+              />
+              <span id="inputNameHelp" class="help-block hidden"></span>
+            </div>
+
+            <div class="form-group">
+              <label for="inputAge">Edad</label>
+              <input
+                class="form-control"
+                type="number"
+                id="inputAge"
+                min="18"
+                max="200"
+                placeholder="Edad"
+              />
+              <span id="inputAgeHelp" class="help-block hidden"></span>
+            </div>
+
+            <button
+              type="button"
+              onclick="createUser()"
+              class="btn btn-success"
+            >
+              Crear
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="panel panel-default" style="display: none" id="form-update">
+        <div class="panel-heading">
+          Actualizar Usuario #<span id="user-id"></span>
+        </div>
+        <div class="panel-body">
+          <form id="updateUserForm">
+            <div class="form-group">
+              <label for="inputName">Nombre</label>
+              <input
+                class="form-control"
+                type="text"
+                id="inputName"
+                placeholder="Nombre"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="inputAge">Edad</label>
+              <input
+                class="form-control"
+                type="number"
+                id="inputAge"
+                min="18"
+                max="200"
+                placeholder="Edad"
+              />
+            </div>
+
+            <button
+              type="button"
+              onclick="saveUpdateUser()"
+              class="btn btn-success"
+            >
+              Actualizar
+            </button>
+
+            <button
+              type="button"
+              onclick="cancelUpdate()"
+              class="btn btn-warning"
+            >
+              Cancelar
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <template id="contentRow">
+      <div class="row">
+        <div class="col-xs-6 txtName">Nombre</div>
+        <div class="col-xs-2 txtAge">Edad</div>
+        <div class="col-xs-4 text-right">
+          <button class="btn btn-primary btnEdit">Editar</button>
+          <button class="btn btn-danger btnDelete">Eliminar</button>
+        </div>
+      </div>
+    </template>
+
+    <script src="/app.js"></script>
+    <script src="/login.js"></script>
+  </body>
+</html>

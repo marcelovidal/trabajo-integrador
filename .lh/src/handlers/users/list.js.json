@@ -1,0 +1,42 @@
+{
+    "sourceFile": "src/handlers/users/list.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 6,
+            "patches": [
+                {
+                    "date": 1622055460378,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1622055492376,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,8 @@\n module.exports = (route) => {\n     route.get('/', async(req, res) => {\n         const filterName = req.query.filterName;\n         const users = await database.list(filterName);\n-        const userOrdenados = user.sort((user1, user2) => (user1.name > user2.name) ? -1 : 1);\n+        const usersOrdenados = users.sort((user1, user2) => (user1.name > user2.name) ? -1 : 1);\n         res.json(usersOrdenados);\n     });\n };\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622055518649,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,8 @@\n module.exports = (route) => {\n     route.get('/', async(req, res) => {\n         const filterName = req.query.filterName;\n         const users = await database.list(filterName);\n-        const usersOrdenados = users.sort((user1, user2) => (user1.name > user2.name) ? -1 : 1);\n+        const usersOrdenados = users.sort((user1, user2) => (user1.name < user2.name) ? -1 : 1);\n         res.json(usersOrdenados);\n     });\n };\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622197211391,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n const database = require('../../database');\n \n // GET /api/users\n module.exports = (route) => {\n-    route.get('/', async(req, res) => {\n+    route.get('/', requestHandle(async(req, res) => {\n         const filterName = req.query.filterName;\n         const users = await database.list(filterName);\n         const usersOrdenados = users.sort((user1, user2) => (user1.name < user2.name) ? -1 : 1);\n         res.json(usersOrdenados);\n-    });\n+    }));\n };\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622197249068,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n const database = require('../../database');\n \n // GET /api/users\n module.exports = (route) => {\n-    route.get('/', requestHandle(async(req, res) => {\n+    route.get('/', async(req, res) => {\n         const filterName = req.query.filterName;\n         const users = await database.list(filterName);\n         const usersOrdenados = users.sort((user1, user2) => (user1.name < user2.name) ? -1 : 1);\n         res.json(usersOrdenados);\n-    }));\n+    });\n };\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622197357196,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n const database = require('../../database');\n \n // GET /api/users\n module.exports = (route) => {\n-    route.get('/', async(req, res) => {\n+    route.get('/', requestHandler(async(req, res) => {\n         const filterName = req.query.filterName;\n         const users = await database.list(filterName);\n         const usersOrdenados = users.sort((user1, user2) => (user1.name < user2.name) ? -1 : 1);\n         res.json(usersOrdenados);\n-    });\n+    }));\n };\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622197371470,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,11 @@\n const database = require('../../database');\n \n // GET /api/users\n module.exports = (route) => {\n-    route.get('/', requestHandler(async(req, res) => {\n+    route.get('/', async(req, res) => {\n         const filterName = req.query.filterName;\n         const users = await database.list(filterName);\n         const usersOrdenados = users.sort((user1, user2) => (user1.name < user2.name) ? -1 : 1);\n         res.json(usersOrdenados);\n-    }));\n+    });\n };\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1622055460378,
+            "name": "Commit-0",
+            "content": "const database = require('../../database');\n\n// GET /api/users\nmodule.exports = (route) => {\n    route.get('/', async(req, res) => {\n        const filterName = req.query.filterName;\n        const users = await database.list(filterName);\n        const userOrdenados = user.sort((user1, user2) => (user1.name > user2.name) ? -1 : 1);\n        res.json(usersOrdenados);\n    });\n};"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "sourceFile": "package.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1622025869449,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1622037773073,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,11 +10,11 @@\n     \"author\": \"IUPA\",\n     \"license\": \"ISC\",\n     \"dependencies\": {\n         \"express\": \"^4.17.1\",\n-        \"express-validator\": \"^6.11.1\",\n+        \"express-validator\": \"^6.10.1\",\n         \"jsonwebtoken\": \"^8.5.1\",\n-        \"nodemo\": \"^1.0.0\"\n+        \"mysql2\": \"^2.2.5\"\n     },\n     \"devDependencies\": {\n         \"nodemon\": \"^2.0.7\"\n     }\n"
+                }
+            ],
+            "date": 1622025869449,
+            "name": "Commit-0",
+            "content": "{\n    \"name\": \"pw2-node-api-example\",\n    \"version\": \"1.0.0\",\n    \"description\": \"Programación Web 2: API Example\",\n    \"main\": \"server.js\",\n    \"scripts\": {\n        \"start\": \"nodemon server.js\",\n        \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\n    },\n    \"author\": \"IUPA\",\n    \"license\": \"ISC\",\n    \"dependencies\": {\n        \"express\": \"^4.17.1\",\n        \"express-validator\": \"^6.11.1\",\n        \"jsonwebtoken\": \"^8.5.1\",\n        \"nodemo\": \"^1.0.0\"\n    },\n    \"devDependencies\": {\n        \"nodemon\": \"^2.0.7\"\n    }\n}"
+        }
+    ]
+}

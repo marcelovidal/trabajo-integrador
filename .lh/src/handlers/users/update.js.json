@@ -1,0 +1,38 @@
+{
+    "sourceFile": "src/handlers/users/update.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 5,
+            "patches": [
+                {
+                    "date": 1622197330026,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1622197335519,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,22 +9,22 @@\n  * name: obligatorio, debe tener por lo menos 3 caracteres\n  * age: obligatorio\n  */\n module.exports = (route) => {\n-    route.put(\n-        '/:userId',\n-        validateName,\n-        validateAge,\n-        validateErrors,\n-        requestHandler(async(req, res) => {\n-            const userId = parseInt(req.params.userId);\n-            const name = req.body.name;\n-            const age = req.body.age;\n+        route.put(\n+            '/:userId',\n+            validateName,\n+            validateAge,\n+            validateErrors,\n+            (async(req, res) => {\n+                const userId = parseInt(req.params.userId);\n+                const name = req.body.name;\n+                const age = req.body.age;\n\\ No newline at end of file\n \n-            const user = await database.update(userId, {\n-                name: name.trim(),\n-                age: parseInt(age),\n+                const user = await database.update(userId, {\n+                    name: name.trim(),\n+                    age: parseInt(age),\n+                });\n+\n+                res.json(user);\n             });\n-\n-            res.json(user);\n-        }));\n-};\n+        };\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622197342368,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,22 +9,23 @@\n  * name: obligatorio, debe tener por lo menos 3 caracteres\n  * age: obligatorio\n  */\n module.exports = (route) => {\n-        route.put(\n-            '/:userId',\n-            validateName,\n-            validateAge,\n-            validateErrors,\n-            (async(req, res) => {\n-                const userId = parseInt(req.params.userId);\n-                const name = req.body.name;\n-                const age = req.body.age;\n+    route.put(\n+        '/:userId',\n+        validateName,\n+        validateAge,\n+        validateErrors,\n+        async(req, res) => {\n+            const userId = parseInt(req.params.userId);\n+            const name = req.body.name;\n+            const age = req.body.age;\n\\ No newline at end of file\n \n-                const user = await database.update(userId, {\n-                    name: name.trim(),\n-                    age: parseInt(age),\n-                });\n+            const user = await database.update(userId, {\n+                name: name.trim(),\n+                age: parseInt(age),\n+            });\n \n-                res.json(user);\n-            });\n-        };\n+            res.json(user);\n+        }\n+    );\n+};\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622197401015,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n         '/:userId',\n         validateName,\n         validateAge,\n         validateErrors,\n-        async(req, res) => {\n+        (async(req, res) => {\n             const userId = parseInt(req.params.userId);\n             const name = req.body.name;\n             const age = req.body.age;\n \n@@ -25,7 +25,6 @@\n                 age: parseInt(age),\n             });\n \n             res.json(user);\n-        }\n-    );\n+        }));\n };\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622197406913,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -14,9 +14,9 @@\n         '/:userId',\n         validateName,\n         validateAge,\n         validateErrors,\n-        (async(req, res) => {\n+        requestHandler(async(req, res) => {\n             const userId = parseInt(req.params.userId);\n             const name = req.body.name;\n             const age = req.body.age;\n \n"
+                },
+                {
+                    "date": 1622197412311,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,22 +9,22 @@\n  * name: obligatorio, debe tener por lo menos 3 caracteres\n  * age: obligatorio\n  */\n module.exports = (route) => {\n-    route.put(\n-        '/:userId',\n-        validateName,\n-        validateAge,\n-        validateErrors,\n-        requestHandler(async(req, res) => {\n-            const userId = parseInt(req.params.userId);\n-            const name = req.body.name;\n-            const age = req.body.age;\n+        route.put(\n+            '/:userId',\n+            validateName,\n+            validateAge,\n+            validateErrors,\n+            (async(req, res) => {\n+                const userId = parseInt(req.params.userId);\n+                const name = req.body.name;\n+                const age = req.body.age;\n\\ No newline at end of file\n \n-            const user = await database.update(userId, {\n-                name: name.trim(),\n-                age: parseInt(age),\n+                const user = await database.update(userId, {\n+                    name: name.trim(),\n+                    age: parseInt(age),\n+                });\n+\n+                res.json(user);\n             });\n-\n-            res.json(user);\n-        }));\n-};\n+        };\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1622197330025,
+            "name": "Commit-0",
+            "content": "const database = require('../../database');\nconst validateName = require('../../validations/user/validateName');\nconst validateAge = require('../../validations/user/validateAge');\nconst validateErrors = require('../../validations/validateErrors');\n\n/**\n * PUT /api/users/:userId\n *\n * name: obligatorio, debe tener por lo menos 3 caracteres\n * age: obligatorio\n */\nmodule.exports = (route) => {\n    route.put(\n        '/:userId',\n        validateName,\n        validateAge,\n        validateErrors,\n        requestHandler(async(req, res) => {\n            const userId = parseInt(req.params.userId);\n            const name = req.body.name;\n            const age = req.body.age;\n\n            const user = await database.update(userId, {\n                name: name.trim(),\n                age: parseInt(age),\n            });\n\n            res.json(user);\n        }));\n};"
+        }
+    ]
+}

@@ -1,0 +1,122 @@
+{
+    "sourceFile": "src/validations/user/validateName.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 26,
+            "patches": [
+                {
+                    "date": 1622057940394,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1622057953478,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,10 @@\n const { body } = require('express-validator');\n \n module.exports = body('name')\n     .trim()\n-    .toLowerCase('name')\n-    .withMessage('Usuario repetido')\n-    .notEmpty()\n+\n+.notEmpty()\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n     .withMessage('Debe tener 3 caracteres');\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622057961531,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,10 +1,9 @@\n const { body } = require('express-validator');\n \n module.exports = body('name')\n     .trim()\n-\n-.notEmpty()\n+    .notEmpty()\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n     .withMessage('Debe tener 3 caracteres');\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622067417306,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,5 +5,10 @@\n     .notEmpty()\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n-    .withMessage('Debe tener 3 caracteres');\n\\ No newline at end of file\n+    .withMessage('Debe tener 3 caracteres')\n+    .custom(async(name) => {\n+        const [users] = await database.connection.excute(\n+            'select * from users where name = ? '\n+        );\n+    })\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622195780938,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,10 +5,10 @@\n     .notEmpty()\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n-    .withMessage('Debe tener 3 caracteres')\n-    .custom(async(name) => {\n-        const [users] = await database.connection.excute(\n-            'select * from users where name = ? '\n-        );\n-    })\n\\ No newline at end of file\n+    .withMessage('Debe tener 3 caracteres');\n+// .custom(async(name) => {\n+//     const [users] = await database.connection.excute(\n+//         'select * from users where name = ? '\n+//     );\n+})\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622195794141,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,5 +10,5 @@\n // .custom(async(name) => {\n //     const [users] = await database.connection.excute(\n //         'select * from users where name = ? '\n //     );\n-})\n\\ No newline at end of file\n+// })\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622196001501,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,10 +5,5 @@\n     .notEmpty()\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n-    .withMessage('Debe tener 3 caracteres');\n-// .custom(async(name) => {\n-//     const [users] = await database.connection.excute(\n-//         'select * from users where name = ? '\n-//     );\n-// })\n\\ No newline at end of file\n+    .withMessage('Debe tener 3 caracteres');\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622197931136,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,5 +5,12 @@\n     .notEmpty()\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n-    .withMessage('Debe tener 3 caracteres');\n\\ No newline at end of file\n+    .withMessage('Debe tener 3 caracteres')\n+    .custom(async(name) => {\n+        name = name.trim;\n+        const [users] = await database.connection.execute(\n+            `SELECT * FORM users WHERE name = ? AND id <> ?`, [name]\n+        )\n+\n+    })\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622198077933,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,6 +11,11 @@\n         name = name.trim;\n         const [users] = await database.connection.execute(\n             `SELECT * FORM users WHERE name = ? AND id <> ?`, [name]\n         )\n+        if (users.length > 0) {\n+            return Promise.reject('El nombre ya existe');\n+        } else {\n+            return Promise.resolve()\n+        }\n \n     })\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622198137542,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,5 +17,5 @@\n         } else {\n             return Promise.resolve()\n         }\n \n-    })\n\\ No newline at end of file\n+    });\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622198198334,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n     .withMessage('Debe tener 3 caracteres')\n-    .custom(async(name) => {\n+    .custom(async(name, meta) => {\n         name = name.trim;\n         const [users] = await database.connection.execute(\n             `SELECT * FORM users WHERE name = ? AND id <> ?`, [name]\n         )\n"
+                },
+                {
+                    "date": 1622198243204,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n     .withMessage('Debe tener 3 caracteres')\n     .custom(async(name, meta) => {\n         name = name.trim;\n         const [users] = await database.connection.execute(\n-            `SELECT * FORM users WHERE name = ? AND id <> ?`, [name]\n+            `SELECT * FORM users WHERE name = ? `, [name]\n         )\n         if (users.length > 0) {\n             return Promise.reject('El nombre ya existe');\n         } else {\n"
+                },
+                {
+                    "date": 1622198280576,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,17 +5,17 @@\n     .notEmpty()\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n-    .withMessage('Debe tener 3 caracteres')\n-    .custom(async(name, meta) => {\n-        name = name.trim;\n-        const [users] = await database.connection.execute(\n-            `SELECT * FORM users WHERE name = ? `, [name]\n-        )\n-        if (users.length > 0) {\n-            return Promise.reject('El nombre ya existe');\n-        } else {\n-            return Promise.resolve()\n-        }\n+    .withMessage('Debe tener 3 caracteres');\n+// .custom(async(name, meta) => {\n\\ No newline at end of file\n+//     name = name.trim;\n+//     const [users] = await database.connection.execute(\n+//         `SELECT * FORM users WHERE name = ? `, [name]\n+//     )\n+//     if (users.length > 0) {\n+//         return Promise.reject('El nombre ya existe');\n+//     } else {\n+//         return Promise.resolve()\n+//     }\n \n-    });\n+// });\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622199536734,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -5,17 +5,17 @@\n     .notEmpty()\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n-    .withMessage('Debe tener 3 caracteres');\n-// .custom(async(name, meta) => {\n-//     name = name.trim;\n-//     const [users] = await database.connection.execute(\n-//         `SELECT * FORM users WHERE name = ? `, [name]\n-//     )\n-//     if (users.length > 0) {\n-//         return Promise.reject('El nombre ya existe');\n-//     } else {\n-//         return Promise.resolve()\n-//     }\n+    .withMessage('Debe tener 3 caracteres')\n+    .custom(async(name) => {\n\\ No newline at end of file\n+        name = name.trim;\n+        const [users] = await database.connection.execute(\n+            `SELECT * FORM users WHERE name = ? `, [name]\n+        );\n+        if (users.length > 0) {\n+            return Promise.reject('El nombre ya existe');\n+        } else {\n+            return Promise.resolve();\n+        }\n \n-// });\n+    });\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622199588906,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n     .withMessage('Debe tener 3 caracteres')\n     .custom(async(name) => {\n         name = name.trim;\n         const [users] = await database.connection.execute(\n-            `SELECT * FORM users WHERE name = ? `, [name]\n+            `SELECT * FORM users WHERE name = ? AND ?`, [name]\n         );\n         if (users.length > 0) {\n             return Promise.reject('El nombre ya existe');\n         } else {\n"
+                },
+                {
+                    "date": 1622199637600,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n     .withMessage('Debe tener 3 caracteres')\n     .custom(async(name) => {\n         name = name.trim;\n         const [users] = await database.connection.execute(\n-            `SELECT * FORM users WHERE name = ? AND ?`, [name]\n+            `SELECT * FORM users WHERE name = ? AND id <> ?`, [name]\n         );\n         if (users.length > 0) {\n             return Promise.reject('El nombre ya existe');\n         } else {\n"
+                },
+                {
+                    "date": 1622384416271,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,16 +6,14 @@\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n     .withMessage('Debe tener 3 caracteres')\n-    .custom(async(name) => {\n-        name = name.trim;\n-        const [users] = await database.connection.execute(\n-            `SELECT * FORM users WHERE name = ? AND id <> ?`, [name]\n-        );\n+    .cursom(async(value) => {\n+        const users = awaite database.searrch({\n+            name: value,\n+        })\n         if (users.length > 0) {\n-            return Promise.reject('El nombre ya existe');\n+            return Promise.reject(\"El usuario ya existe\"),\n\\ No newline at end of file\n         } else {\n-            return Promise.resolve();\n+            return Promise.resolve()\n         }\n-\n-    });\n+    })\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622384431656,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n     .bail()\n     .isLength({ min: 3 })\n     .withMessage('Debe tener 3 caracteres')\n     .cursom(async(value) => {\n-        const users = awaite database.searrch({\n+        const users = awaite database.search({\n             name: value,\n         })\n         if (users.length > 0) {\n             return Promise.reject(\"El usuario ya existe\"),\n"
+                },
+                {
+                    "date": 1622384535503,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -11,9 +11,9 @@\n         const users = awaite database.search({\n             name: value,\n         })\n         if (users.length > 0) {\n-            return Promise.reject(\"El usuario ya existe\"),\n+            return Promise.reject(\"El usuario ya existe\");\n         } else {\n             return Promise.resolve()\n         }\n     })\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622384554553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,5 +15,5 @@\n             return Promise.reject(\"El usuario ya existe\");\n         } else {\n             return Promise.resolve()\n         }\n-    })\n\\ No newline at end of file\n+    });\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1622384566542,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,9 +6,9 @@\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n     .withMessage('Debe tener 3 caracteres')\n-    .cursom(async(value) => {\n+    .custom(async(value) => {\n         const users = awaite database.search({\n             name: value,\n         })\n         if (users.length > 0) {\n"
+                },
+                {
+                    "date": 1622384591693,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -7,9 +7,9 @@\n     .bail()\n     .isLength({ min: 3 })\n     .withMessage('Debe tener 3 caracteres')\n     .custom(async(value) => {\n-        const users = awaite database.search({\n+        const users = await database.search({\n             name: value,\n         })\n         if (users.length > 0) {\n             return Promise.reject(\"El usuario ya existe\");\n"
+                },
+                {
+                    "date": 1622385003330,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,6 @@\n const { body } = require('express-validator');\n+const database = require('express-validator');\n \n module.exports = body('name')\n     .trim()\n     .notEmpty()\n"
+                },
+                {
+                    "date": 1622385038714,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n const { body } = require('express-validator');\n-const database = require('express-validator');\n+const database = require('../../database');\n \n module.exports = body('name')\n     .trim()\n     .notEmpty()\n"
+                },
+                {
+                    "date": 1622385212031,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,18 +1,18 @@\n const { body } = require('express-validator');\n-const database = require('../../database');\n+const { connection } = require('../../database');\n \n module.exports = body('name')\n     .trim()\n     .notEmpty()\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n     .withMessage('Debe tener 3 caracteres')\n-    .custom(async(value) => {\n-        const users = await database.search({\n-            name: value,\n-        })\n+    .custom(async(name) => {\n+        const [users] = await connection.execute(\n+            `SELECT * FROM users WHERE name = ?`, [name]\n+        );\n         if (users.length > 0) {\n             return Promise.reject(\"El usuario ya existe\");\n         } else {\n             return Promise.resolve()\n"
+                },
+                {
+                    "date": 1622385480725,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n const { body } = require('express-validator');\n-const { connection } = require('../../database');\n+const database = require('../../database');\n \n module.exports = body('name')\n     .trim()\n     .notEmpty()\n@@ -8,9 +8,9 @@\n     .bail()\n     .isLength({ min: 3 })\n     .withMessage('Debe tener 3 caracteres')\n     .custom(async(name) => {\n-        const [users] = await connection.execute(\n+        const [users] = await database.connection.execute(\n             `SELECT * FROM users WHERE name = ?`, [name]\n         );\n         if (users.length > 0) {\n             return Promise.reject(\"El usuario ya existe\");\n"
+                },
+                {
+                    "date": 1622386565285,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -6,15 +6,15 @@\n     .notEmpty()\n     .withMessage('Campo obligatorio')\n     .bail()\n     .isLength({ min: 3 })\n-    .withMessage('Debe tener 3 caracteres')\n-    .custom(async(name) => {\n-        const [users] = await database.connection.execute(\n-            `SELECT * FROM users WHERE name = ?`, [name]\n-        );\n-        if (users.length > 0) {\n-            return Promise.reject(\"El usuario ya existe\");\n-        } else {\n-            return Promise.resolve()\n-        }\n-    });\n\\ No newline at end of file\n+    .withMessage('Debe tener 3 caracteres');\n+// .custom(async(name) => {\n+//     const [users] = await database.connection.execute(\n+//         `SELECT * FROM users WHERE name = ?`, [name]\n+//     );\n+//     if (users.length > 0) {\n+//         return Promise.reject(\"El usuario ya existe\");\n+//     } else {\n+//         return Promise.resolve()\n+//     }\n+// });\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1622057940394,
+            "name": "Commit-0",
+            "content": "const { body } = require('express-validator');\n\nmodule.exports = body('name')\n    .trim()\n    .toLowerCase('name')\n    .withMessage('Usuario repetido')\n    .notEmpty()\n    .withMessage('Campo obligatorio')\n    .bail()\n    .isLength({ min: 3 })\n    .withMessage('Debe tener 3 caracteres');"
+        }
+    ]
+}
