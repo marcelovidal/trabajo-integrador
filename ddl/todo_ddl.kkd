@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagrama nombreProyecto="TODO List" version="8" nombreAutor="user" formula="%t_%c">
+  <DataBase>2</DataBase>
+  <lista-item>
+    <item id="{cf9cd73d-8ace-4637-bf09-506f9c6386da}" type="modelo-tabla">
+      <nombre>Usuario</nombre>
+      <posicion>
+        <x>-449</x>
+        <y>-139</y>
+      </posicion>
+      <lista-columnas>
+        <columna id="{84bee2fb-496a-45ae-9666-1d51228eef49}" notas="" tipoDato="INTEGER" nombre="id" llaveprimaria="1" llaveUnica="" nulo="0"/>
+        <columna id="{e3cd3904-9b22-46af-b6a2-61fdda1af38e}" notas="" tipoDato="VARCHAR(25)" nombre="username" llaveprimaria="0" llaveUnica="" nulo="0"/>
+        <columna id="{30ca6f3a-a349-4837-b315-bf46b68ee5b5}" notas="" tipoDato="VARCHAR(50)" nombre="nombre" llaveprimaria="0" llaveUnica="" nulo="1"/>
+        <columna id="{dfada87e-be18-44b8-a56c-8e7525df2691}" notas="" tipoDato="VARCHAR(50)" nombre="apellido" llaveprimaria="0" llaveUnica="" nulo="1"/>
+        <columna id="{0e73cb51-7309-46a9-9d71-08cec4b88214}" notas="" tipoDato="CHAR(16)" nombre="password" llaveprimaria="0" llaveUnica="" nulo="0"/>
+        <columna id="{025006fd-ea77-42ea-8d1d-beb067840460}" notas="" tipoDato="BIT" nombre="root" llaveprimaria="0" llaveUnica="" nulo="0"/>
+      </lista-columnas>
+    </item>
+    <item id="{1dd4c8ae-ab86-4b3c-9407-8a2f14eae8c8}" type="modelo-tabla">
+      <nombre>Tarea</nombre>
+      <posicion>
+        <x>-182</x>
+        <y>-146</y>
+      </posicion>
+      <lista-columnas>
+        <columna id="{fd7c46c9-6078-45c5-b696-4604c2958f5c}" notas="" tipoDato="" nombre="id" llaveprimaria="1" llaveUnica="" nulo="0"/>
+        <columna id="{f5eaa006-580e-4dd0-a6cd-781fa7c3ecf6}" notas="" tipoDato="VARCHAR(50)" nombre="titulo" llaveprimaria="0" llaveUnica="" nulo="0"/>
+        <columna id="{3f8e6b7f-d71a-4ed3-ab26-90982f1a389e}" notas="" tipoDato="VARCHAR(500)" nombre="descripcion" llaveprimaria="0" llaveUnica="" nulo="1"/>
+        <columna id="{25be6cb5-4e42-4138-a8d1-9490c979d280}" notas="" tipoDato="DATE" nombre="fecha_limite" llaveprimaria="0" llaveUnica="" nulo="1"/>
+        <columna id="{c7d71192-5024-4be7-b7c5-0d9b43d2c3a9}" notas="" tipoDato="VARCHAR(10)" nombre="estado" llaveprimaria="0" llaveUnica="" nulo="0"/>
+        <columna id="{1534dd65-9599-478a-8cef-5eac33c408c0}" notas="" tipoDato="TIMESTAMP" nombre="fecha_creacion" llaveprimaria="0" llaveUnica="" nulo="0"/>
+        <columna id="{459f556e-5969-4739-b275-630574850b3c}" notas="" tipoDato="TIMESTAMP" nombre="fecha_actualizacion" llaveprimaria="0" llaveUnica="" nulo="1"/>
+      </lista-columnas>
+    </item>
+    <item id="{2452fc33-45d7-438a-bdc2-fb68530ff28a}" type="modelo-relacion">
+      <inicio>
+        <posicion>
+          <x>-355.938</x>
+          <y>-84.0938</y>
+        </posicion>
+        <angulo>0</angulo>
+        <label>create</label>
+        <cardinalidad>Uno</cardinalidad>
+        <cardinalidadLinea>Puede</cardinalidadLinea>
+        <owner>{cf9cd73d-8ace-4637-bf09-506f9c6386da}</owner>
+      </inicio>
+      <final>
+        <posicion>
+          <x>-182</x>
+          <y>-84.0938</y>
+        </posicion>
+        <angulo>180</angulo>
+        <label>have</label>
+        <cardinalidad>Muchos</cardinalidad>
+        <cardinalidadLinea>Debe</cardinalidadLinea>
+        <owner>{1dd4c8ae-ab86-4b3c-9407-8a2f14eae8c8}</owner>
+      </final>
+    </item>
+  </lista-item>
+</diagrama>
