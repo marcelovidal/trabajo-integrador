@@ -9,32 +9,6 @@
 			"name": "Users",
 			"item": [
 				{
-					"name": "Agregar un usuario",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"username\": \"bgates\",\n    \"nombre\": \"bill\",\n    \"apellido\": \"gates\",\n    \"password\": \"luvwin\",\n    \"root\": 0\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{base}}/users",
-							"host": [
-								"{{base}}"
-							],
-							"path": [
-								"users"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Listar usuarios",
 					"request": {
 						"method": "GET",
@@ -76,13 +50,39 @@
 					"response": []
 				},
 				{
+					"name": "Agregar un usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"bgates\",\n    \"nombre\": \"bill\",\n    \"apellido\": \"gates\",\n    \"password\": \"luvwin\",\n    \"root\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/users",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Actualizar un usuario",
 					"request": {
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"username\": \"graby\",\n    \"nombre\": \"GABRIEL\",\n    \"apellido\": \"RABY\",\n    \"password\": \"pass_segura\"\n}",
+							"raw": "{\n    \"username\": \"graby\",\n    \"nombre\": \"GABRIEL\",\n    \"apellido\": \"RABY\",\n    \"password\": \"pass_insegura\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -126,6 +126,135 @@
 								{
 									"key": "userId",
 									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Listar tareas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/tasks",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Encontrar una tarea",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/tasks/:taskId",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"tasks",
+								":taskId"
+							],
+							"variable": [
+								{
+									"key": "taskId",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Agregar una tarea",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Construir frontend\", \n    \"descripcion\": \"Desarrollar el frontend del proyecto TODO\",\n    \"fechaLimite\": \"2021-06-20\",\n    \"estado\": \"pendiente\",\n    \"fechaCreacion\": \"2021-06-08\", \n    \"fechaActualizacion\": null, \n    \"usuarioId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/tasks",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar una tarea",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Construir frontend\", \n    \"descripcion\": \"Desarrollar el frontend del proyecto TODO\",\n    \"fechaLimite\": \"2021-06-20\",\n    \"estado\": \"completada\",\n    \"fechaCreacion\": \"2021-06-08\", \n    \"fechaActualizacion\": \"2021-06-08 18:55:03\", \n    \"usuarioId\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base}}/tasks/:taskId",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"tasks",
+								":taskId"
+							],
+							"variable": [
+								{
+									"key": "taskId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar una tarea",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base}}/tasks/:taskId",
+							"host": [
+								"{{base}}"
+							],
+							"path": [
+								"tasks",
+								":taskId"
+							],
+							"variable": [
+								{
+									"key": "taskId",
+									"value": "4"
 								}
 							]
 						}

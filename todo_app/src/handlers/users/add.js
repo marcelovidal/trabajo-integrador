@@ -1,4 +1,4 @@
-const database = require("../../database");
+const users = require("../../db/users");
 //const validateName = require('../../validations/user/validateName');
 //const validateAge = require('../../validations/user/validateAge');
 //const validateErrors = require('../../validations/validateErrors');
@@ -12,7 +12,7 @@ module.exports = (route) => {
     const password = req.body.password;
     const root = req.body.root;
 
-    const user = await database.add({
+    const user = await users.add({
       username: username.trim(),
       nombre: nombre.trim(),
       apellido: apellido.trim(),

@@ -1,14 +1,12 @@
-const database = require("../../database");
+const users = require("../../db/users");
 
 // DELETE /api/users/:userId
 module.exports = (route) => {
   route.delete("/:userId", async (req, res) => {
     const userId = parseInt(req.params.userId);
 
-    await database.remove(userId);
+    const result = await users.remove(userId);
 
-    res.json({
-      message: "User deleted!",
-    });
+    res.json(result);
   });
 };

@@ -1,4 +1,4 @@
-const database = require("../../database");
+const users = require("../../db/users");
 /* const validateName = require('../../validations/user/validateName');
 const validateAge = require('../../validations/user/validateAge');
 const validateErrors = require('../../validations/validateErrors');
@@ -18,14 +18,14 @@ module.exports = (route) => {
       const apellido = req.body.apellido;
       const password = req.body.password;
 
-      const user = await database.update(userId, {
+      const result = await users.update(userId, {
         username: username.trim(),
         nombre: nombre.trim(),
         apellido: apellido.trim(),
         password: password.trim(),
       });
 
-      res.json(user);
+      res.json(result);
     }
   );
 };

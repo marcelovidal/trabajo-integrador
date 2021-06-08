@@ -1,7 +1,7 @@
 const { PORT } = require("./src/config");
 const apiRouting = require("./src/handlers");
 const express = require("express");
-const { initDB } = require("./src/database");
+const { initDB } = require("./src/db/database");
 
 const app = express();
 
