@@ -70,56 +70,39 @@ class ResourceNotFoundError extends Error {
 }
  */
 
-module.exports = {
-  async initDB() {
-    connection = await mysql.createConnection(DB_CONFIG);
+const initDB = async () => {
+  connection = await mysql.createConnection(DB_CONFIG);
+};
+
+const list = async () => {
+  const [users] = await connection.execute("SELECT * FROM Usuario");
+  return users;
+};
+
+const find = async (userId) => {
+  const [users] = await connection.execute(
+    "SELECT * FROM Usuario WHERE id = ?",
+    [userId]
+  );
+
+  if (users.length > 0) {
+    return users[0];
+  } else {
+    return undefined;
   }
-  /**
-   * Listar.
-   *
-   * @param {string|undefined} filterName Filtrar por nombre.
-   * @returns {TUserDB[]}
-   */
-  /*   async list(filterName) {
-    const [users] = await connection.execute('SELECT * FROM users');
- */
-  // if (filterName && filterName.trim()) {
-  //   filterName = filterName.trim().toLowerCase();
+};
 
-  //   users = users.filter((user) =>
-  //     user.name.toLowerCase().includes(filterName)
-  //   );
-  // }
+module.exports = {
+  initDB,
+  list,
+  find,
 
-  /*     return users;
-  },
- */
-  /**
-   * Buscar un usuario por ID.
-   *
-   * @param {number} userId ID de Usuario.
-   * @returns {TUserDB | undefined}
-   */
-  /*   async find(userId) {
-    const [users] = await connection.execute(
-      'SELECT * FROM users WHERE id = ?',
-      [userId]
-    );
-
-    if (users.length > 0) {
-      return users[0];
-    } else {
-      return undefined;
-    }
-  },
-
- */
   /**
    * Buscar usuarios.
    *
    * @param {TFilterQuery} query Query de búsqueda.
    * @returns {TUserDB[]}
-   */,
+   */
   /*   async search(query) {
     const paramsString = Object.keys(query) // ["username", "pass"]
       .map((elem) => `${elem} = ?`) // ["username = ?", "pass = ?"]
