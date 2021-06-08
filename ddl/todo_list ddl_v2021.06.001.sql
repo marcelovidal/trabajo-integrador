@@ -45,8 +45,6 @@ INSERT INTO `Tarea` (`id`, `titulo`, `descripcion`, `fecha_limite`, `estado`, `f
 	(1,'Definir data model', 'Definir tablas, relaciones y constraints para el modelo de datos del proyecto TODO', '2021-06-07', 'completada', '2021-06-01', '2021-06-04', 3), 
 	(2,'Construir API endpoints', 'Desarrollar los endpoints REST para el modelo de datos del proyecto TODO', '2021-06-09', 'pendiente', '2021-06-02', NULL, 2); 
     
-# GENERATING RELATIONSHIPS
-ALTER TABLE `Tarea` ADD CONSTRAINT `tarea_usuario_usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `Usuario`(`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
 
 # GENERATING OTHER CONSTRAINTS
 ALTER TABLE `Usuario`
@@ -55,3 +53,5 @@ ALTER TABLE `Usuario`
 ALTER TABLE `Tarea`
   MODIFY `id` INTEGER NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
   
+# GENERATING RELATIONSHIPS
+ALTER TABLE `Tarea` ADD CONSTRAINT `tarea_usuario_usuario_id` FOREIGN KEY (`usuario_id`) REFERENCES `Usuario`(`id`) ON DELETE NO ACTION ON UPDATE CASCADE;
