@@ -1,3 +1,5 @@
 
 todo_app/node_modules/
 todo_app/package-lock.json
+
+todo_app/src/config.js

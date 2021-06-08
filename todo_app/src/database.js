@@ -37,39 +37,6 @@ class ResourceNotFoundError extends Error {
  * @property {number|undefined} age Edad.
  */
 
-/**
- * Validar datos del usuario.
- *
- * @param {TUser} userData
- */
-/* function validateUser(userData) {
-  if (!userData) {
-    throw new Error(`No se ha definidio el usuario`);
-  }
-
-  if (!userData.name || !userData.name.trim()) {
-    throw new Error(`La propiedad 'name' es requerida`);
-  }
-
-  if (userData.username && !userData.username.trim()) {
-    throw new Error(`La propiedad 'username' no puede ser vacía`);
-  }
-
-  if (userData.password && !userData.password.trim()) {
-    throw new Error(`La propiedad 'password' no puede ser vacía`);
-  }
-
-  if (
-    !userData.age ||
-    isNaN(userData.age) ||
-    userData.age < 18 ||
-    userData.age > 200
-  ) {
-    throw new Error(`La propiedad 'age' es inválida`);
-  }
-}
- */
-
 const initDB = async () => {
   connection = await mysql.createConnection(DB_CONFIG);
 };
@@ -92,108 +59,72 @@ const find = async (userId) => {
   }
 };
 
+const add = async (userData) => {
+  //validateUser(userData);
+  let result = undefined;
+  try {
+    console.info("PRE INSERT - ", userData);
+    const { username, nombre, apellido, password, root } = userData;
+    [result] = await connection.execute(
+      "INSERT INTO Usuario (username, nombre, apellido, password, root) VALUES(?, ?, ?, ?, ?)",
+      [username, nombre, apellido, password, root]
+    );
+
+    console.info("POST INSERT NO ERROR ", result);
+  } catch (err) {
+    console.error("POST INSERT ERROR (catch) ", err.message);
+  } finally {
+    console.info("POST INSERT (finally) ");
+    return await find(result.insertId);
+  }
+};
+
+const update = async (userId, newUserData) => {
+  const user = await find(userId);
+
+  if (!user) {
+    throw new ResourceNotFoundError(
+      `No existe un usuario con ID "${userId}"`,
+      "user",
+      userId
+    );
+  }
+
+  //validateUser(newUserData);
+
+  user.username = newUserData.username;
+  user.nombre = newUserData.nombre;
+  user.apellido = newUserData.apellido;
+  user.password = newUserData.password;
+
+  await connection.execute(
+    "UPDATE Usuario SET username = ?, nombre = ?, apellido = ?, password = ? WHERE id = ?",
+    [user.username, user.nombre, user.apellido, user.password, user.id]
+  );
+
+  return user;
+};
+
+const remove = async (userId) => {
+  const user = await find(userId);
+
+  if (!user) {
+    throw new ResourceNotFoundError(
+      `No existe un usuario con ID "${userId}"`,
+      "user",
+      userId
+    );
+  }
+
+  await connection.execute("DELETE FROM Usuario WHERE id = ?", [user.id]);
+};
+
 module.exports = {
   initDB,
   list,
   find,
-
-  /**
-   * Buscar usuarios.
-   *
-   * @param {TFilterQuery} query Query de búsqueda.
-   * @returns {TUserDB[]}
-   */
-  /*   async search(query) {
-    const paramsString = Object.keys(query) // ["username", "pass"]
-      .map((elem) => `${elem} = ?`) // ["username = ?", "pass = ?"]
-      .join(' AND '); // "username = ? AND pass = ?"
-
-    const [users] = await connection.execute(
-      `SELECT * FROM users WHERE ${paramsString}`,
-      Object.values(query)
-    );
-
-    return users;
-  },
- */
-  /**
-   * Agregar un usuariro.
-   *
-   * @param {TUser} userData
-   */
-  /*   async add(userData) {
-    validateUser(userData);
-    const { username, password, name, age } = userData;
-    const [result] = await connection.execute(
-      'INSERT INTO users(username, password, name, age) VALUES(?, ?, ?, ?)',
-      [username, password, name, age]
-    );
-
-    return await this.find(result.insertId);
-  },
- */
-  /**
-   * Actualizar un usuario.
-   *
-   * @param {number} userId
-   * @param {TUser & {
-   *    username?: string,
-   *    password?: string,
-   *  }} newUserData
-   */
-  /*   async update(userId, newUserData) {
-    const user = await this.find(userId);
-
-    if (!user) {
-      throw new ResourceNotFoundError(
-        `No existe un usuario con ID "${userId}"`,
-        'user',
-        userId
-      );
-    }
- */
-  /*     validateUser(newUserData);
-   */
-  // Actualiza datos
-
-  /*     if (newUserData.username) {
-      user.username = newUserData.username;
-    }
-
-    if (newUserData.password) {
-      user.password = newUserData.password;
-    }
-
-    user.name = newUserData.name;
-    user.age = newUserData.age;
-
-    await connection.execute(
-      'UPDATE users SET username = ?, password = ?, name = ?, age = ? WHERE id = ?',
-      [user.username, user.password, user.name, user.age, user.id]
-    );
-
-    return user;
-  },
- */
-  /**
-   * Elimina un usuario.
-   *
-   * @param {number} userId
-   */
-  /*   async remove(userId) {
-    const user = await this.find(userId);
-
-    if (!user) {
-      throw new ResourceNotFoundError(
-        `No existe un usuario con ID "${userId}"`,
-        'user',
-        userId
-      );
-    }
-
-    await connection.execute('DELETE FROM users WHERE id = ?', [user.id]);
-  },
-
+  add,
+  update,
+  remove,
   ResourceNotFoundError,
- */
 };
