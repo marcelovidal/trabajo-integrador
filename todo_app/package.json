@@ -1,0 +1,29 @@
+{
+  "name": "todo_app",
+  "version": "1.0.0",
+  "description": "Programación Web 2: Trabajo Integrador Lista de Tareas (TODO app)",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/grabyc/trabajo-integrador.git"
+  },
+  "author": "Marcelo Vidal & Gabriel Raby",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/grabyc/trabajo-integrador/issues"
+  },
+  "homepage": "https://github.com/grabyc/trabajo-integrador#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-validator": "^6.11.1",
+    "moment": "^2.29.1",
+    "mysql2": "^2.2.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}

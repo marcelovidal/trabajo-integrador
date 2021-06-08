@@ -1,0 +1,9 @@
+module.exports = {
+  PORT: 3000,
+  DB_CONFIG: {
+    host: "HOST", // nombre de host mysql
+    user: "USER", // username para acceder a bd TODO
+    password: "PASSWORD", // password de usuario USER
+    database: "TODO",
+  },
+};
