@@ -1,31 +1,31 @@
-const database = require('../../database');
-const validateName = require('../../validations/user/validateName');
+const users = require("../../db/users");
+/* const validateName = require('../../validations/user/validateName');
 const validateAge = require('../../validations/user/validateAge');
 const validateErrors = require('../../validations/validateErrors');
-
-/**
- * PUT /api/users/:userId
- *
- * name: obligatorio, debe tener por lo menos 3 caracteres
- * age: obligatorio
  */
+
+// PUT /api/users/:userId
 module.exports = (route) => {
   route.put(
-    '/:userId',
-    validateName,
+    "/:userId",
+    /*     validateName,
     validateAge,
     validateErrors,
-    async (req, res) => {
+ */ async (req, res) => {
       const userId = parseInt(req.params.userId);
-      const name = req.body.name;
-      const age = req.body.age;
+      const username = req.body.username;
+      const nombre = req.body.nombre;
+      const apellido = req.body.apellido;
+      const password = req.body.password;
 
-      const user = await database.update(userId, {
-        name: name.trim(),
-        age: parseInt(age),
+      const result = await users.update(userId, {
+        username: username.trim(),
+        nombre: nombre.trim(),
+        apellido: apellido.trim(),
+        password: password.trim(),
       });
 
-      res.json(user);
+      res.json(result);
     }
   );
 };
