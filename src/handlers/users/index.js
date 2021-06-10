@@ -1,10 +1,18 @@
 const express = require("express");
-const usersRouting = require("./users");
-const tasksRouting = require("./tasks");
+const list = require("./list");
+const find = require("./find");
+const add = require("./add");
+const update = require("./update");
+const remove = require("./remove");
 
-const apiRouting = express.Router();
+const usersRouting = express.Router();
+list(usersRouting);
+find(usersRouting);
+add(usersRouting);
+update(usersRouting);
+remove(usersRouting);
 
-apiRouting.use("/api", usersRouting);
-apiRouting.use("/api", tasksRouting);
+const usersAPI = express.Router();
+usersAPI.use("/users", usersRouting);
 
-module.exports = apiRouting;
+module.exports = usersAPI;
