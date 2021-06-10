@@ -1,0 +1,32 @@
+.acceso {
+    box-shadow: 0px 10px 10px -6px black;
+    margin-top: 10%;
+    background-color: #fff;
+}
+
+.agenda {
+    margin-top: 10%;
+    background-color: #fff;
+    padding: 40px 0px 40px 0px;
+}
+
+h4 {
+    margin: 20px 0px;
+}
+
+body {
+    background-color: #ccc;
+}
+
+a.edit:link,
+a.edit {
+    color: #ccc;
+}
+
+a.edit:hover {
+    color: #000;
+}
+
+.fa {
+    margin-top: 5px;
+}
