@@ -8,9 +8,9 @@ services:
       - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: iupa
-      MYSQL_PASSWORD: Iupa1234
-      MYSQL_DATABASE: diplomatura
+      MYSQL_USER: marcelo
+      MYSQL_PASSWORD: marcelo
+      MYSQL_DATABASE: todo
     volumes:
       - db_mysql:/var/lib/mysql
 
