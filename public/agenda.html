@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <title>Agenda</title>
+</head>
+
+<body onload="initApp()">
+    <div class="container">
+        <div class="row agenda shadow-none p-3 mb-5 bg-light rounded">
+            <div class="col-1">
+            </div>
+            <div class="col-10">
+
+                <h4>Agenda del usuario: mvidal</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Títilo</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Realizar</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">Editar</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="contentRow">
+                        <div id="contentTable"></div>
+                    </tbody>
+
+                </table>
+                <form>
+
+                    <div class="form-group">
+                        <label for="exampleInputTitulo">Título</label>
+                        <input type="text" class="form-control" id="inputTitulo" aria-describedby="usernameHelp" placeholder="Ingrese el título de la tarea">
+                        <small id="tituloHelp" class="form-text text-muted">El títlo debe ser descriptivo de la tarea.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputDescripcion">Descripcion</label>
+                        <textarea class="form-control" id="inputDescripcion" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputUsername">Fecha</label>
+                        <input class="form-control" type="datetime-local" value="2011-08-19T13:45:00" id="inputFechaLimite">
+                    </div>
+                    <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true" onclick="createTarea()">Agendar</a>
+                </form>
+            </div>
+            <div class="col-1">
+            </div>
+        </div>
+        <template id="contentRow">
+            <tr id="row">
+                <th class="txtId">1</th>
+                <td class="txtTitulo">Buscar a Jr.</td>
+                <td class="txtDescripcion">Pasra por clase de ingles</td>
+                <td class="txtFechaLimite">02/08/21 13:45hs</td>
+                <td class="txtEstado">
+                    <select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect">
+                    <option value="1">Pendiente</option>
+                    <option value="2">Realizada</option>
+                    <option value="3">Cencelada</option>
+                </td>
+                <td><a href="#" class="edit" id="btnEdit"><i style="font-size:24px" class="fa">&#xf044;</i></a></td>    
+            </tr>
+        </template>
+
+</body>
+<script src="/app.js"></script>
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+
+</html>
