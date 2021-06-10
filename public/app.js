@@ -1,40 +1,50 @@
 // Referencia a la tabla de contenido
-const contentTable = document.getElementById('contentTable');
 // Referencia al template
+// const templateRow = document.getElementById('contentRow').content;
+// const inputName = document.getElementById('inputName');
+// const inputNameHelp = document.getElementById('inputNameHelp');
+// const inputNameFormGroup = inputNameHelp.parentElement;
+// const inputAge = document.getElementById('inputAge');
+// const inputAgeHelp = document.getElementById('inputAgeHelp');
+// const inputAgeFormGroup = inputAgeHelp.parentElement;
+// const inputPassword = document.getElementById('inputPassword');
+// const inputUsername = document.getElementById('inputUsername');
+// // const inputUsernameHelp = document.getElementById('inputUsernameHelp');
+// const inputUsernameFormGroup = inputUsernameHelp.parentElement;
+// const createUserFormContent = document.getElementById('form-create');
+// const createUserForm = document.getElementById('createUserForm');
+// const updateUserFormContent = document.getElementById('form-update');
+// const updateUserForm = document.getElementById('updateUserForm');
+// let editingUserId = null;
+
+//Tomo el template y su contenido
+const contentTable = document.getElementById('contentTable');
+
 const templateRow = document.getElementById('contentRow').content;
+const inputTitulo = document.getElementById('inputTitulo');
+const inputDescripcion = document.getElementById('inputDescripcion');
+const inputFechaLimite = document.getElementById('inputFechaLimite');
 
-const inputName = document.getElementById('inputName');
-const inputNameHelp = document.getElementById('inputNameHelp');
-const inputNameFormGroup = inputNameHelp.parentElement;
-const inputAge = document.getElementById('inputAge');
-const inputAgeHelp = document.getElementById('inputAgeHelp');
-const inputAgeFormGroup = inputAgeHelp.parentElement;
 
-const createUserFormContent = document.getElementById('form-create');
-const createUserForm = document.getElementById('createUserForm');
-
-const updateUserFormContent = document.getElementById('form-update');
-const updateUserForm = document.getElementById('updateUserForm');
-
-let editingUserId = null;
 
 /**
- * Agregar Row.
+ * Agregar Row Tarea.
  *
- * @param {*} name
- * @param {*} age
+ * @param {*} titulo
+ * @param {*} descripcion
+ * @param {*} id
+ * @param {*} fecha_limite
+ * @param {*} estado
  */
-function addRow(name, age, id) {
+function addRow(id, titulo, descripcion) {
     // Clono el template en una nueva variable
     const row = templateRow.cloneNode(true);
 
     // Modifico el valor del nodo de texto por el ingesado por el usuario
-    row.querySelector('.txtName').innerText = name;
-    row.querySelector('.txtAge').innerText = age;
-
-    row.querySelector('.btnDelete').onclick = () => deleteUser(id);
-    row.querySelector('.btnEdit').addEventListener('click', () => updateUser(id));
-
+    row.querySelector('.txtId').innerText = id;
+    row.querySelector('.txtTitulo').innerText = titulo;
+    row.querySelector('.txtDescripcion').innerText = descripcion;
+    row.querySelector('.btnEdit').addEventListener('click', () => updateTask(id));
     row.querySelector('.row').dataset.id = id;
 
     // Inserto en el contenido de la tabla
@@ -52,37 +62,26 @@ async function api(method, endpoint, body = undefined) {
     if (body) {
         body = JSON.stringify(body);
     }
-
     const headers = {
         'Content-Type': 'application/json',
     };
-
-    const token = localStorage.getItem('token');
-
-    if (token) {
-        headers['Authorization'] = `Bearer ${token}`;
-    }
-
     const response = await fetch(`/api${endpoint}`, {
         method,
         body,
         headers,
     });
-
     const data = await response.json();
-
     return data;
 }
 
+
 /**
- * Cargar datos de la tabla.
+ * Cargar datos de la tabla Usuario.
  */
 async function loadTable() {
-    if (localStorage.getItem('token')) {
-        contentTable.innerHTML = '';
-        const data = await api('get', '/users');
-        data.forEach(({ name, age, id }) => addRow(name, age, id));
-    }
+    templateRow.innerHTML = '';
+    const data = await api('get', '/tasks');
+    data.forEach(({ id, titulo, descripcion }) => addRow(id, titulo, descripcion, ));
 }
 
 /**
@@ -93,17 +92,21 @@ async function initApp() {
 }
 
 /**
- * Crear usuario.
+ * Crear tarea.
  */
-async function createUser() {
-    const name = inputName.value;
-    const age = inputAge.value;
+async function createTarea() {
+    const titulo = inputTitulo.value;
+    const descripcion = inputDescripcion.value;
+    const fecha_limite = inputFechaLimite.value;
 
     resetFormErrors();
 
-    const response = await api('post', '/users', {
-        name,
-        age,
+    const response = await api('post', '/tasks', {
+        titulo,
+        descripcion,
+        fecha_limite,
+        estado,
+
     });
 
     if (response.errors) {
@@ -128,15 +131,21 @@ async function updateUser(id) {
     updateUserFormContent.querySelector('#user-id').innerText = id;
     updateUserForm.querySelector('#inputName').value = user.name;
     updateUserForm.querySelector('#inputAge').value = user.age;
+    updateUserForm.querySelector('#inputUsername').value = user.username;
+    // updateUserForm.querySelector('#inputPassword').value = user.password;
 }
 
 async function saveUpdateUser() {
     const name = updateUserForm.querySelector('#inputName').value;
     const age = updateUserForm.querySelector('#inputAge').value;
+    const username = updateUserForm.querySelector('#inputUsername').value;
+    // const password = updateUserForm.querySelector('#inputPassword').value;
 
     await api('put', `/users/${editingUserId}`, {
         name,
         age,
+        username,
+        password,
     });
 
     cancelUpdate();
