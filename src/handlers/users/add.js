@@ -1,4 +1,4 @@
-const users = require("../../db/users");
+const tasks = require("../../db/tasks");
 //const validateName = require('../../validations/user/validateName');
 //const validateAge = require('../../validations/user/validateAge');
 //const validateErrors = require('../../validations/validateErrors');
@@ -6,20 +6,24 @@ const users = require("../../db/users");
 // POST /api/users
 module.exports = (route) => {
   route.post("/", async (req, res) => {
-    const username = req.body.username;
-    const nombre = req.body.nombre;
-    const apellido = req.body.apellido;
-    const password = req.body.password;
-    const root = req.body.root;
+    const titulo = req.body.titulo;
+    const descripcion = req.body.descripcion;
+    const fechaLimite = req.body.fechaLimite;
+    const estado = req.body.estado;
+    const fechaCreacion = req.body.fechaCreacion;
+    const fechaActualizacion = req.body.fechaActualizacion;
+    const usuarioId = req.body.usuarioId;
 
-    const user = await users.add({
-      username: username.trim(),
-      nombre: nombre.trim(),
-      apellido: apellido.trim(),
-      password: password.trim(),
-      root: root,
+    const task = await tasks.add({
+      titulo: titulo.trim(),
+      descripcion: descripcion.trim(),
+      fechaLimite: fechaLimite,
+      estado: estado,
+      fechaCreacion: fechaCreacion,
+      fechaActualizacion: fechaActualizacion,
+      usuarioId: usuarioId,
     });
 
-    res.json(user);
+    res.json(task);
   });
 };

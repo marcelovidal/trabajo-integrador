@@ -1,10 +1,10 @@
-const users = require("../../db/users");
+const tasks = require("../../db/tasks");
 
-// GET /api/users
+// GET /api/tasks
 
 module.exports = (route) => {
   route.get("/", async (req, res) => {
-    const usersList = await users.list();
-    res.json(usersList);
+    const tasksList = await tasks.list();
+    res.json(tasksList);
   });
 };

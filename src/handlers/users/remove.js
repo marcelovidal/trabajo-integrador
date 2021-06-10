@@ -1,11 +1,11 @@
-const users = require("../../db/users");
+const tasks = require("../../db/tasks");
 
-// DELETE /api/users/:userId
+// DELETE /api/tasks/:taskId
 module.exports = (route) => {
-  route.delete("/:userId", async (req, res) => {
-    const userId = parseInt(req.params.userId);
+  route.delete("/:taskId", async (req, res) => {
+    const taskId = parseInt(req.params.taskId);
 
-    const result = await users.remove(userId);
+    const result = await tasks.remove(taskId);
 
     res.json(result);
   });

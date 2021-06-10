@@ -5,14 +5,14 @@ const add = require("./add");
 const update = require("./update");
 const remove = require("./remove");
 
-const usersRouting = express.Router();
-list(usersRouting);
-find(usersRouting);
-add(usersRouting);
-update(usersRouting);
-remove(usersRouting);
+const tasksRouting = express.Router();
+list(tasksRouting);
+find(tasksRouting);
+add(tasksRouting);
+update(tasksRouting);
+remove(tasksRouting);
 
-const usersAPI = express.Router();
-usersAPI.use("/users", usersRouting);
+const tasksAPI = express.Router();
+tasksAPI.use("/tasks", tasksRouting);
 
-module.exports = usersAPI;
+module.exports = tasksAPI;
