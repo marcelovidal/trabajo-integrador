@@ -1,33 +1,25 @@
-const database = require('../../database');
-const validateName = require('../../validations/user/validateName');
-const validateAge = require('../../validations/user/validateAge');
-const validateErrors = require('../../validations/validateErrors');
-const requestHandler = require('../../middlewares/requestHandler');
+const users = require("../../db/users");
+//const validateName = require('../../validations/user/validateName');
+//const validateAge = require('../../validations/user/validateAge');
+//const validateErrors = require('../../validations/validateErrors');
 
-/**
- * POST /api/users
- *
- * name: obligatorio, debe tener por lo menos 3 caracteres
- * age: obligatorio
- */
+// POST /api/users
 module.exports = (route) => {
-  route.post(
-    '/',
-    validateName,
-    validateAge,
-    validateErrors,
-    requestHandler(async (req, res) => {
-      const name = req.body.name;
-      const age = req.body.age;
+  route.post("/", async (req, res) => {
+    const username = req.body.username;
+    const nombre = req.body.nombre;
+    const apellido = req.body.apellido;
+    const password = req.body.password;
+    const root = req.body.root;
 
-      const user = await database.add({
-        name: name.trim(),
-        age: parseInt(age),
-        username: 'test',
-        password: 'test',
-      });
+    const user = await users.add({
+      username: username.trim(),
+      nombre: nombre.trim(),
+      apellido: apellido.trim(),
+      password: password.trim(),
+      root: root,
+    });
 
-      res.json(user);
-    })
-  );
+    res.json(user);
+  });
 };
